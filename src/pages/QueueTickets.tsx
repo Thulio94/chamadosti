@@ -25,7 +25,7 @@ export function QueueTickets() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -52,13 +52,13 @@ export function QueueTickets() {
     <div>
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Fila de Chamados</h1>
-          <p className="text-gray-600">Visualize a ordem dos chamados ativos</p>
+          <h1 className="text-2xl font-bold text-[#2563EB]">Fila de Chamados</h1>
+          <p className="text-[#64748B]">Visualize a ordem dos chamados ativos</p>
         </div>
         <button
           onClick={handleRefresh}
           disabled={refreshing}
-          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#2563EB] hover:bg-[#1E40AF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563EB] disabled:opacity-50"
         >
           {refreshing ? (
             <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -115,8 +115,8 @@ export function QueueTickets() {
                     {index + 1}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">{ticket.title}</div>
-                    <div className="text-sm text-gray-500 truncate max-w-xs">{ticket.description}</div>
+                    <div className="text-sm font-medium text-[#2563EB]">{ticket.title}</div>
+                    <div className="text-sm text-[#64748B] truncate max-w-xs">{ticket.description}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(ticket.status)}`}>

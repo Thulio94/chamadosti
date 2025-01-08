@@ -10,6 +10,7 @@ import { QueueTickets } from './pages/QueueTickets';
 import { Layout } from './components/Layout';
 import { PrivateRoute } from './components/PrivateRoute';
 import { NotificationListener } from './components/Notification';
+import { NotificationSidebar } from './components/NotificationSidebar';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Toaster position="top-right" />
       <NotificationListener />
       <BrowserRouter>
+        <NotificationSidebar />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route

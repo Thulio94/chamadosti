@@ -22,7 +22,7 @@ export function Layout() {
         {/* Sidebar */}
         <aside 
           className={`
-            fixed lg:relative min-h-screen bg-white shadow-lg transition-all duration-300 ease-in-out z-30
+            fixed lg:relative min-h-screen bg-[#2563EB] shadow-lg transition-all duration-300 ease-in-out z-30
             ${isSidebarOpen ? 'w-64' : 'w-20'} 
           `}
         >
@@ -32,18 +32,18 @@ export function Layout() {
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               className="absolute -right-3 top-6 z-40 p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-all duration-300"
             >
-              {isSidebarOpen ? <PanelLeftClose size={20} /> : <PanelLeft size={20} />}
+              {isSidebarOpen ? <PanelLeftClose size={20} className="text-[#2563EB]" /> : <PanelLeft size={20} className="text-[#2563EB]" />}
             </button>
 
-            <h1 className={`text-xl font-bold text-gray-800 transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100' : 'opacity-0 lg:hidden'}`}>
-              {isSidebarOpen && `Seja bem-vindo, ${user.name}`}
+            <h1 className={`text-xl font-bold text-white transition-opacity duration-300 ${isSidebarOpen ? 'opacity-100' : 'opacity-0 lg:hidden'}`}>
+              {isSidebarOpen && user?.name && `Seja bem-vindo, ${user.name}`}
             </h1>
           </div>
 
           <nav className="mt-4">
             <Link
               to="/"
-              className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-white font-semibold hover:bg-[#1E40AF]"
               title="Dashboard"
             >
               <LayoutDashboard className="w-5 h-5 min-w-[20px]" />
@@ -53,7 +53,7 @@ export function Layout() {
             </Link>
             <Link
               to="/novo-chamado"
-              className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-white font-semibold hover:bg-[#1E40AF]"
               title="Criar Chamado"
             >
               <Plus className="w-5 h-5 min-w-[20px]" />
@@ -63,7 +63,7 @@ export function Layout() {
             </Link>
             <Link
               to="/meus-chamados"
-              className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-white font-semibold hover:bg-[#1E40AF]"
               title="Meus Chamados"
             >
               <List className="w-5 h-5 min-w-[20px]" />
@@ -73,7 +73,7 @@ export function Layout() {
             </Link>
             <Link
               to="/fila"
-              className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
+              className="flex items-center px-4 py-2 text-white font-semibold hover:bg-[#1E40AF]"
               title="Fila de Chamados"
             >
               <AlignJustify className="w-5 h-5 min-w-[20px]" />
@@ -84,7 +84,7 @@ export function Layout() {
             {user?.role !== 'usuario' && (
               <Link
                 to="/usuarios"
-                className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className="flex items-center px-4 py-2 text-white font-semibold hover:bg-[#1E40AF]"
                 title="Gerenciar Usuários"
               >
                 <Users className="w-5 h-5 min-w-[20px]" />
@@ -98,7 +98,7 @@ export function Layout() {
           <div className="absolute bottom-0 w-full p-4">
             <button
               onClick={handleLogout}
-              className="flex items-center w-full px-4 py-2 text-gray-700 hover:bg-gray-100"
+              className="flex items-center w-full px-4 py-2 text-white font-semibold hover:bg-[#1E40AF]"
               title="Sair"
             >
               <LogOut className="w-5 h-5 min-w-[20px]" />

@@ -1,13 +1,14 @@
 {
   "name": "sistema-chamados-ti",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "rebuild": "rm -rf node_modules && rm -rf dist && npm install && npm run build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.7",

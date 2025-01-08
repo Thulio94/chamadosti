@@ -105,7 +105,7 @@ export function Dashboard() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -116,13 +116,13 @@ export function Dashboard() {
     <div>
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600">Visão geral dos chamados de hoje</p>
+          <h1 className="text-2xl font-bold text-[#2563EB]">Dashboard</h1>
+          <p className="text-[#64748B]">Visão geral dos chamados de hoje</p>
         </div>
         <button
           onClick={handleRefresh}
           disabled={refreshing}
-          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#2563EB] hover:bg-[#1E40AF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563EB] disabled:opacity-50"
         >
           {refreshing ? (
             <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -139,8 +139,8 @@ export function Dashboard() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Chamados Abertos</p>
-              <p className="text-3xl font-semibold text-gray-900">{statusCount.aberto}</p>
+              <p className="text-sm font-medium text-[#64748B]">Chamados Abertos</p>
+              <p className="text-3xl font-semibold text-[#2563EB]">{statusCount.aberto}</p>
             </div>
             <div className="p-3 bg-green-100 rounded-full">
               <svg
@@ -163,8 +163,8 @@ export function Dashboard() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Em Processo</p>
-              <p className="text-3xl font-semibold text-gray-900">{totalEmProcesso}</p>
+              <p className="text-sm font-medium text-[#64748B]">Em Processo</p>
+              <p className="text-3xl font-semibold text-[#2563EB]">{totalEmProcesso}</p>
             </div>
             <div className="p-3 bg-yellow-100 rounded-full">
               <svg
@@ -187,8 +187,8 @@ export function Dashboard() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Reabertos</p>
-              <p className="text-3xl font-semibold text-gray-900">{statusCount.reaberto}</p>
+              <p className="text-sm font-medium text-[#64748B]">Reabertos</p>
+              <p className="text-3xl font-semibold text-[#2563EB]">{statusCount.reaberto}</p>
             </div>
             <div className="p-3 bg-orange-100 rounded-full">
               <svg
@@ -211,8 +211,8 @@ export function Dashboard() {
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Fechados</p>
-              <p className="text-3xl font-semibold text-gray-900">{statusCount.fechado}</p>
+              <p className="text-sm font-medium text-[#64748B]">Fechados</p>
+              <p className="text-3xl font-semibold text-[#2563EB]">{statusCount.fechado}</p>
             </div>
             <div className="p-3 bg-blue-100 rounded-full">
               <svg
@@ -234,7 +234,7 @@ export function Dashboard() {
       </div>
 
       <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Últimos Chamados</h2>
+        <h2 className="text-lg font-semibold text-[#2563EB] mb-4">Últimos Chamados</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {recentTickets.map((ticket) => (
             <TicketCard

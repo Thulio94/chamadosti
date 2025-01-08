@@ -94,7 +94,7 @@ export function MyTickets() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -102,8 +102,8 @@ export function MyTickets() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Meus Chamados</h1>
-        <p className="text-gray-600">
+        <h1 className="text-2xl font-bold text-[#2563EB]">Meus Chamados</h1>
+        <p className="text-[#64748B]">
           {user?.role === 'usuario' 
             ? 'Chamados abertos por você' 
             : 'Chamados atribuídos a você'}
@@ -114,12 +114,12 @@ export function MyTickets() {
       <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
         <div className="flex flex-wrap gap-4 items-end">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[#64748B] mb-1">
               Data Inicial
             </label>
             <input
               type="date"
-              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="rounded-md border-secondary-lighter shadow-sm focus:border-primary focus:ring-primary"
               value={startDate?.toISOString().split('T')[0] || ''}
               onChange={(e) => setStartDate(e.target.value ? new Date(e.target.value) : null)}
             />
@@ -130,7 +130,7 @@ export function MyTickets() {
             </label>
             <input
               type="date"
-              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="rounded-md border-secondary-lighter shadow-sm focus:border-primary focus:ring-primary"
               value={endDate?.toISOString().split('T')[0] || ''}
               onChange={(e) => setEndDate(e.target.value ? new Date(e.target.value) : null)}
             />
@@ -138,7 +138,7 @@ export function MyTickets() {
           <div className="flex gap-2">
             <button
               onClick={handleDateFilter}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
             >
               Filtrar
             </button>

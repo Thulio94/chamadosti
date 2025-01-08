@@ -138,7 +138,7 @@ export function TicketDetail() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -153,12 +153,12 @@ export function TicketDetail() {
     <div className="max-w-4xl mx-auto">
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
         <div className="flex justify-between items-start mb-4">
-          <h1 className="text-2xl font-bold text-gray-900">{ticket.title}</h1>
+          <h1 className="text-2xl font-bold text-[#2563EB]">{ticket.title}</h1>
           {canChangeStatus && (
             <select
               value={ticket.status}
               onChange={(e) => handleStatusChange(e.target.value)}
-              className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="rounded-md border-secondary-lighter shadow-sm focus:border-primary focus:ring-primary"
               disabled={updating}
             >
               {Object.entries(statusOptions).map(([value, label]) => (
@@ -170,9 +170,9 @@ export function TicketDetail() {
           )}
         </div>
 
-        <p className="text-gray-700 mb-4">{ticket.description}</p>
+        <p className="text-[#64748B] mb-4">{ticket.description}</p>
 
-        <div className="flex items-center justify-between text-sm text-gray-500">
+        <div className="flex items-center justify-between text-sm text-[#64748B]">
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
               <UserIcon className="w-4 h-4 mr-1" />
@@ -193,7 +193,7 @@ export function TicketDetail() {
       </div>
 
       <div className="bg-white rounded-lg shadow-sm p-6">
-        <h2 className="text-xl font-semibold mb-4">Comentários</h2>
+        <h2 className="text-xl font-semibold text-[#2563EB] mb-4">Comentários</h2>
         
         <div className="space-y-4 mb-6">
           {comments.map((comment) => (
@@ -230,7 +230,7 @@ export function TicketDetail() {
           <div className="flex justify-end">
             <button
               type="submit"
-              className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+              className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark"
             >
               Enviar
             </button>

@@ -77,18 +77,18 @@ export function NewTicket() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Novo Chamado</h1>
+      <h1 className="text-2xl font-bold text-[#2563EB] mb-6">Novo Chamado</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-[#64748B]">
             Título
           </label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            className="mt-1 block w-full rounded-md border-secondary-lighter shadow-sm focus:border-primary focus:ring-primary"
             required
           />
         </div>
@@ -129,14 +129,14 @@ export function NewTicket() {
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+            className="px-4 py-2 text-sm font-medium text-[#64748B] bg-white border border-[#E2E8F0] rounded-md hover:bg-[#F8FAFC]"
           >
             Cancelar
           </button>
           <button
             type="submit"
             disabled={submitting}
-            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 disabled:opacity-50"
+            className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark disabled:opacity-50"
           >
             {submitting ? 'Criando...' : 'Criar Chamado'}
           </button>
