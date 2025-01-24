@@ -86,7 +86,7 @@ export function MyTickets() {
   const myTickets = tickets.filter(ticket => 
     user?.role === 'usuario' 
       ? ticket.user_id === user.id
-      : (user?.role === 'ti' || user?.role === 'admin') 
+      : (user?.role === 'ti' || user?.role === 'admin' || user?.role === 'usuario') 
         ? ticket.ti_id === user.id 
         : false
   );
@@ -157,9 +157,9 @@ export function MyTickets() {
           <div key={ticket.id} className="flex flex-col">
             <TicketCard
               ticket={ticket}
-              onClick={user?.role === 'usuario' ? undefined : () => navigate(`/chamado/${ticket.id}`)}
+              onClick={() => navigate(`/chamado/${ticket.id}`)}
             />
-            {user?.role === 'ti' && (
+            {user?.role === 'ti' || user?.role === 'admin' || user?.role === 'usuario' && (
               <select 
                 className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 onChange={(e) => reassignTicket(ticket.id, e.target.value)}

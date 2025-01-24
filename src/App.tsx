@@ -7,6 +7,8 @@ import { MyTickets } from './pages/MyTickets';
 import { TicketDetail } from './pages/TicketDetail';
 import { UserManagement } from './pages/UserManagement';
 import { QueueTickets } from './pages/QueueTickets';
+import { WhatsAppConnections } from './pages/WhatsAppConnections';
+import { Reports } from './pages/Reports';
 import { Layout } from './components/Layout';
 import { PrivateRoute } from './components/PrivateRoute';
 import { NotificationListener } from './components/Notification';
@@ -35,6 +37,8 @@ function App() {
             <Route path="chamado/:id" element={<TicketDetail />} />
             <Route path="usuarios" element={<UserManagement />} />
             <Route path="fila" element={<QueueTickets />} />
+            <Route path="conexoes-whatsapp" element={<WhatsAppConnections />} />
+            <Route path="relatorios" element={<Reports />} />
           </Route>
         </Routes>
       </BrowserRouter>

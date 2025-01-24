@@ -3,6 +3,7 @@ export type User = {
   email: string;
   name: string;
   role: 'admin' | 'ti' | 'usuario';
+  status: boolean;
 };
 
 export type Ticket = {
@@ -15,3 +16,16 @@ export type Ticket = {
   created_at: string;
   updated_at: string;
 };
+
+export interface Connection {
+  id: string;
+  instance_name: string;
+  number: string | null;
+  webhook_url: string | null;
+  webhook_by_events: boolean;
+  events: string[];
+  status: 'connected' | 'disconnected' | 'pending';
+  created_at: string;
+  updated_at: string;
+  is_active: boolean;
+}

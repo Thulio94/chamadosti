@@ -14,6 +14,7 @@ export function UserManagement() {
     email: '',
     password: '',
     role: 'usuario',
+    status: true,
   });
   const { user: currentUser } = useAuthStore();
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export function UserManagement() {
         const { data, error } = await supabase
           .from('users')
           .select('*')
+          .eq('status', true)
           .order('name');
 
         if (error) throw error;
@@ -62,13 +64,14 @@ export function UserManagement() {
           email: newUser.email,
           role: newUser.role,
           password: newUser.password,
+          status: true,
         },
       ]);
 
       if (profileError) throw profileError;
 
       toast.success('Usuário criado com sucesso!');
-      setNewUser({ name: '', email: '', password: '', role: 'usuario' });
+      setNewUser({ name: '', email: '', password: '', role: 'usuario', status: true });
       const { data: updatedUsers } = await supabase
         .from('users')
         .select('*')
@@ -91,6 +94,7 @@ export function UserManagement() {
       const updates = {
         name: editingUser.name,
         role: editingUser.role,
+        status: editingUser.status,
         ...(editingUser.password ? { password: editingUser.password } : {}),
       };
 
@@ -117,37 +121,30 @@ export function UserManagement() {
   };
 
   const handleDeleteUser = async (userId: string) => {
-    if (!window.confirm('Tem certeza que deseja excluir este usuário?')) {
+    if (!window.confirm('Tem certeza que deseja desativar este usuário?')) {
       return;
     }
 
     try {
-      // Primeiro, excluir da tabela de usuários
-      const { error: profileError } = await supabase
+      const { error: updateError } = await supabase
         .from('users')
-        .delete()
+        .update({ status: false })
         .eq('id', userId);
 
-      if (profileError) throw profileError;
+      if (updateError) throw updateError;
 
-      toast.success('Usuário excluído com sucesso!');
-      const fetchUsers = async () => {
-        try {
-          const { data, error } = await supabase
-            .from('users')
-            .select('*')
-            .order('name');
+      toast.success('Usuário desativado com sucesso!');
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('status', true)
+        .order('name');
 
-          if (error) throw error;
-          setUsers(data || []);
-        } catch (error) {
-          toast.error('Erro ao carregar usuários');
-        }
-      };
-      fetchUsers();
+      if (error) throw error;
+      setUsers(data || []);
     } catch (error: any) {
-      console.error('Erro ao excluir usuário:', error);
-      toast.error(error.message || 'Erro ao excluir usuário');
+      console.error('Erro ao desativar usuário:', error);
+      toast.error(error.message || 'Erro ao desativar usuário');
     }
   };
 
@@ -330,7 +327,7 @@ export function UserManagement() {
                       onClick={() => handleDeleteUser(user.id)}
                       className="text-red-600 hover:text-red-900"
                     >
-                      Excluir
+                      Desativar
                     </button>
                   </div>
                 </td>

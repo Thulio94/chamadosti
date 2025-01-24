@@ -15,6 +15,7 @@ interface StatusCount {
 export function Dashboard() {
   const { tickets, loading, refetch } = useTickets();
   const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const recentTickets = tickets.slice(0, 10);
   const [statusCount, setStatusCount] = useState<StatusCount>({
     aberto: 0,
@@ -27,13 +28,14 @@ export function Dashboard() {
 
   const fetchStatusCount = async () => {
     try {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      const selectedDateTime = new Date(selectedDate);
+      selectedDateTime.setHours(0, 0, 0, 0);
 
       const { data, error } = await supabase
         .from('tickets')
         .select('status')
-        .gte('created_at', today.toISOString());
+        .gte('created_at', selectedDateTime.toISOString())
+        .lt('created_at', new Date(selectedDateTime.getTime() + 24 * 60 * 60 * 1000).toISOString());
 
       if (error) throw error;
 
@@ -65,10 +67,19 @@ export function Dashboard() {
     setRefreshing(false);
   };
 
+  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedDate(event.target.value);
+  };
+
   useEffect(() => {
     fetchStatusCount();
+  }, [selectedDate]);
 
+  useEffect(() => {
     // Configurar subscription para atualizações em tempo real dos contadores
+    const selectedDateTime = new Date(selectedDate);
+    selectedDateTime.setHours(0, 0, 0, 0);
+
     const subscription = supabase
       .channel('dashboard-status')
       .on(
@@ -77,7 +88,7 @@ export function Dashboard() {
           event: 'INSERT',
           schema: 'public',
           table: 'tickets',
-          filter: `created_at=gte.${new Date().setHours(0, 0, 0, 0)}`,
+          filter: `created_at=gte.${selectedDateTime.toISOString()}`,
         },
         () => {
           fetchStatusCount();
@@ -89,7 +100,7 @@ export function Dashboard() {
           event: 'UPDATE',
           schema: 'public',
           table: 'tickets',
-          filter: `created_at=gte.${new Date().setHours(0, 0, 0, 0)}`,
+          filter: `created_at=gte.${selectedDateTime.toISOString()}`,
         },
         () => {
           fetchStatusCount();
@@ -100,7 +111,7 @@ export function Dashboard() {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [selectedDate]);
 
   if (loading) {
     return (
@@ -117,22 +128,30 @@ export function Dashboard() {
       <div className="mb-6 flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-[#2563EB]">Dashboard</h1>
-          <p className="text-[#64748B]">Visão geral dos chamados de hoje</p>
+          <p className="text-[#64748B]">Visão geral dos chamados</p>
         </div>
-        <button
-          onClick={handleRefresh}
-          disabled={refreshing}
-          className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#2563EB] hover:bg-[#1E40AF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563EB] disabled:opacity-50"
-        >
-          {refreshing ? (
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
-            </svg>
-          )}
-          <span className="ml-2">{refreshing ? 'Atualizando...' : 'Atualizar'}</span>
-        </button>
+        <div className="flex items-center gap-4">
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={handleDateChange}
+            className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-[#2563EB]"
+          />
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#2563EB] hover:bg-[#1E40AF] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2563EB] disabled:opacity-50"
+          >
+            {refreshing ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+              </svg>
+            )}
+            <span className="ml-2">{refreshing ? 'Atualizando...' : 'Atualizar'}</span>
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
